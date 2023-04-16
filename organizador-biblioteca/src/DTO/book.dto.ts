@@ -1,13 +1,13 @@
 import {
-  ArrayMinSize,
   IsNotEmpty,
-  IsNotEmptyObject,
-  IsNumber,
-  IsPositive,
-  IsString,
-  MaxLength,
-  MinLength,
   ValidateNested,
+  IsNumber,
+  IsString,
+  MinLength,
+  MaxLength,
+  IsPositive,
+  ArrayMinSize,
+  IsNotEmptyObject,
 } from 'class-validator';
 import { AuthorDTO } from './author.dto';
 import { Type } from 'class-transformer';
@@ -15,38 +15,32 @@ import { Type } from 'class-transformer';
 export class BookDTO {
   @IsNotEmpty()
   @IsString()
-  @MinLength(3)
+  @MinLength(2)
   @MaxLength(100)
-  private readonly name: string;
+  readonly name: string;
 
   @IsNotEmpty()
+  @ValidateNested({ each: true })
   @Type(() => AuthorDTO)
   @ArrayMinSize(1)
-  @IsNotEmptyObject()
-  @ValidateNested({ each: true })
-  private readonly author: AuthorDTO[];
+  readonly author: AuthorDTO[];
 
   @IsNotEmpty()
   @IsString()
-  @MinLength(2)
-  @MaxLength(100)
-  private readonly language: string;
+  readonly language: string;
 
-  @IsNotEmpty()
   @IsNumber()
-  @IsPositive()
-  @MinLength(3)
-  @MaxLength(100)
-  private readonly releaseYear: number;
-
   @IsNotEmpty()
+  @IsPositive()
+  readonly releaseYear: number;
+
   @IsString()
-  @MinLength(2)
-  @MaxLength(100)
-  private readonly publisher: string;
-
   @IsNotEmpty()
+  @MinLength(2)
+  readonly publisher: string;
+
   @IsNumber()
+  @IsNotEmpty()
   @IsPositive()
-  private readonly pages: number;
+  readonly pages: number;
 }

@@ -4,8 +4,7 @@ import { AuthorSchema } from './author.schema';
 export const BookSchema = new Schema({
   name: String,
   author: [AuthorSchema],
-  langguage: String,
-  releaseYear: Number,
+  language: String,
   publisher: String,
   pages: Number,
 });
