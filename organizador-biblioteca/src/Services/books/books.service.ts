@@ -48,6 +48,12 @@ export class BooksService {
       throw new BadRequestException(`There's no Result with this ID`);
     }
 
-    return await this.bookRepository.updateBook(bookID, book);
+    const updatedBook = await this.bookRepository.updateBook(bookID, book);
+
+    if (updatedBook) {
+      return this.bookRepository.getBookById(bookID);
+    } else {
+      throw new BadRequestException('error in Update');
+    }
   }
 }
