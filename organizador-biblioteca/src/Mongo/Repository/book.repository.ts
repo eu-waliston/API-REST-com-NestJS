@@ -12,4 +12,23 @@ export class BookRepository {
     const createdBook = new this.bookModel(newBook);
     return createdBook.save();
   }
+
+  async getAllBooks(): Promise<Book[]> {
+    return await this.bookModel
+      .find({}, { __v: false })
+      .sort({ name: +1 })
+      .exec();
+  }
+
+  async getBookById(bookID: string): Promise<Book> {
+    return await this.bookModel.findById(bookID, { __V: false });
+  }
+
+  async deleteBookByID(bookID: string): Promise<Book> {
+    return this.bookModel.findByIdAndDelete(bookID);
+  }
+
+  async updateBook(bookID: string, book: BookDTO): Promise<Book> {
+    return await this.bookModel.findOneAndReplace({ _id: bookID }, book);
+  }
 }

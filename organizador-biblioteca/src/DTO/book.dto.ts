@@ -7,7 +7,6 @@ import {
   MaxLength,
   IsPositive,
   ArrayMinSize,
-  IsNotEmptyObject,
 } from 'class-validator';
 import { AuthorDTO } from './author.dto';
 import { Type } from 'class-transformer';
