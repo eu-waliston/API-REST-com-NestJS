@@ -66,9 +66,9 @@ export class BooksService {
 
     if (!foundBooks) {
       throw new BadRequestException('No results for this author');
+    } else {
+      return foundBooks;
     }
-
-    return foundBooks;
   }
 
   async getBookByName(bookName: string): Promise<Book[]> {
