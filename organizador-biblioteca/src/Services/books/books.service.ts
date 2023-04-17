@@ -56,4 +56,28 @@ export class BooksService {
       throw new BadRequestException('error in Update');
     }
   }
+
+  async getBookByAuthorName(authorName: string): Promise<Book[]> {
+    const authorNameArray = authorName.split(' ');
+
+    const foundBooks = await this.bookRepository.getBookByAuthorName(
+      authorNameArray,
+    );
+
+    if (!foundBooks) {
+      throw new BadRequestException('No results for this author');
+    }
+
+    return foundBooks;
+  }
+
+  async getBookByName(bookName: string): Promise<Book[]> {
+    const foundBooks = await this.bookRepository.getBookByName(bookName);
+
+    if (!foundBooks) {
+      throw new BadRequestException('No results for this name');
+    }
+
+    return foundBooks;
+  }
 }

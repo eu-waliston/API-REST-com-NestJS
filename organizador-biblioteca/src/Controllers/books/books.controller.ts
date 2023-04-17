@@ -20,9 +20,21 @@ export class BooksController {
     return await this.booksService.getAllBooks();
   }
 
-  @Get(':bookID')
+  @Get('/id/:bookID')
   async getBookById(@Param('bookID') bookID: string): Promise<Book> {
     return await this.booksService.getBookById(bookID);
+  }
+
+  @Get('/author/:authorName')
+  async getBookByAuthorName(
+    @Param('authorName') authorName: string,
+  ): Promise<Book[]> {
+    return await this.booksService.getBookByAuthorName(authorName);
+  }
+
+  @Get('/name/:bookName')
+  async getBookByName(@Param('bookName') bookName: string): Promise<Book[]> {
+    return await this.booksService.getBookByName(bookName);
   }
 
   @Post()

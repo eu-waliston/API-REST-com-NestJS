@@ -31,4 +31,22 @@ export class BookRepository {
   async updateBook(bookID: string, book: BookDTO): Promise<Book> {
     return await this.bookModel.findOneAndReplace({ _id: bookID }, book);
   }
+
+  async getBookByAuthorName(authorName: string[]): Promise<Book[]> {
+    return await this.bookModel.find({
+      $or: [
+        { 'author.name': { $in: authorName } },
+        { 'author.surname': { $in: authorName } },
+      ],
+    });
+  }
+
+  async getBookByName(bookName: string): Promise<Book[]> {
+    return await this.bookModel.find(
+      {
+        name: { $regex: bookName, $options: 'i' },
+      },
+      { __v: false },
+    );
+  }
 }
